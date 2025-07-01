@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\Service Poject\\ServiceBondhu\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{704E6CD3-60F6-4E5D-B1B7-A440BE6A7FBD}|ServiceBondhu\\ServiceBondhu.csproj|f:\\service poject\\servicebondhu\\servicebondhu\\areas\\admin\\controllers\\actioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{704E6CD3-60F6-4E5D-B1B7-A440BE6A7FBD}|ServiceBondhu\\ServiceBondhu.csproj|solutionrelative:servicebondhu\\areas\\admin\\controllers\\actioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ActionController.cs",
+              "DocumentMoniker": "F:\\Service Poject\\ServiceBondhu\\ServiceBondhu\\Areas\\Admin\\Controllers\\ActionController.cs",
+              "RelativeDocumentMoniker": "ServiceBondhu\\Areas\\Admin\\Controllers\\ActionController.cs",
+              "ToolTip": "F:\\Service Poject\\ServiceBondhu\\ServiceBondhu\\Areas\\Admin\\Controllers\\ActionController.cs",
+              "RelativeToolTip": "ServiceBondhu\\Areas\\Admin\\Controllers\\ActionController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-01T18:02:25.381Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
