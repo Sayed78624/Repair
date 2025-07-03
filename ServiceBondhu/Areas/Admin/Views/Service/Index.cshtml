@@ -15,11 +15,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.ServiceId)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryName)
-            </th>
+           
             <th>
                 @Html.DisplayNameFor(model => model.ServiceName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
@@ -36,6 +37,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ServiceName)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>

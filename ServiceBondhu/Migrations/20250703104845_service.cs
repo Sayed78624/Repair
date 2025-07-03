@@ -41,23 +41,6 @@ namespace ServiceBondhu.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Mechanics",
-                columns: table => new
-                {
-                    MechanicId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    ExperienceYear = table.Column<int>(type: "int", nullable: false),
-                    Rating = table.Column<double>(type: "float", nullable: false),
-                    AvailableZone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsAvailable = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Mechanics", x => x.MechanicId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ServiceCategories",
                 columns: table => new
                 {
@@ -78,15 +61,14 @@ namespace ServiceBondhu.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     ServiceName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ServiceCategoryCategoryId = table.Column<int>(type: "int", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Services", x => x.ServiceId);
                     table.ForeignKey(
-                        name: "FK_Services_ServiceCategories_ServiceCategoryCategoryId",
-                        column: x => x.ServiceCategoryCategoryId,
+                        name: "FK_Services_ServiceCategories_CategoryId",
+                        column: x => x.CategoryId,
                         principalTable: "ServiceCategories",
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Cascade);
@@ -125,58 +107,26 @@ namespace ServiceBondhu.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MechanicServices",
+                name: "Mechanics",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    MechanicId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MechanicId = table.Column<int>(type: "int", nullable: false),
+                    MechanicName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
                     ServiceId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MechanicServices", x => x.Id);
+                    table.PrimaryKey("PK_Mechanics", x => x.MechanicId);
                     table.ForeignKey(
-                        name: "FK_MechanicServices_Mechanics_MechanicId",
-                        column: x => x.MechanicId,
-                        principalTable: "Mechanics",
-                        principalColumn: "MechanicId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MechanicServices_Services_ServiceId",
+                        name: "FK_Mechanics_Services_ServiceId",
                         column: x => x.ServiceId,
                         principalTable: "Services",
                         principalColumn: "ServiceId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "BookingServiceCompletions",
-                columns: table => new
-                {
-                    CompletionId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    BookingId = table.Column<int>(type: "int", nullable: false),
-                    MechanicId = table.Column<int>(type: "int", nullable: false),
-                    CompletedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ActualPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BookingServiceCompletions", x => x.CompletionId);
-                    table.ForeignKey(
-                        name: "FK_BookingServiceCompletions_Bookings_BookingId",
-                        column: x => x.BookingId,
-                        principalTable: "Bookings",
-                        principalColumn: "BookingId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BookingServiceCompletions_Mechanics_MechanicId",
-                        column: x => x.MechanicId,
-                        principalTable: "Mechanics",
-                        principalColumn: "MechanicId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -210,6 +160,61 @@ namespace ServiceBondhu.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "BookingServiceCompletions",
+                columns: table => new
+                {
+                    CompletionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BookingId = table.Column<int>(type: "int", nullable: false),
+                    MechanicId = table.Column<int>(type: "int", nullable: false),
+                    CompletedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ActualPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BookingServiceCompletions", x => x.CompletionId);
+                    table.ForeignKey(
+                        name: "FK_BookingServiceCompletions_Bookings_BookingId",
+                        column: x => x.BookingId,
+                        principalTable: "Bookings",
+                        principalColumn: "BookingId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_BookingServiceCompletions_Mechanics_MechanicId",
+                        column: x => x.MechanicId,
+                        principalTable: "Mechanics",
+                        principalColumn: "MechanicId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MechanicService",
+                columns: table => new
+                {
+                    MechanicServiceId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MechanicId = table.Column<int>(type: "int", nullable: false),
+                    ServiceId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MechanicService", x => x.MechanicServiceId);
+                    table.ForeignKey(
+                        name: "FK_MechanicService_Mechanics_MechanicId",
+                        column: x => x.MechanicId,
+                        principalTable: "Mechanics",
+                        principalColumn: "MechanicId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MechanicService_Services_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "Services",
+                        principalColumn: "ServiceId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Bookings_CustomerId",
                 table: "Bookings",
@@ -241,19 +246,24 @@ namespace ServiceBondhu.Migrations
                 column: "BookingId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MechanicServices_MechanicId",
-                table: "MechanicServices",
-                column: "MechanicId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MechanicServices_ServiceId",
-                table: "MechanicServices",
+                name: "IX_Mechanics_ServiceId",
+                table: "Mechanics",
                 column: "ServiceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Services_ServiceCategoryCategoryId",
+                name: "IX_MechanicService_MechanicId",
+                table: "MechanicService",
+                column: "MechanicId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MechanicService_ServiceId",
+                table: "MechanicService",
+                column: "ServiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Services_CategoryId",
                 table: "Services",
-                column: "ServiceCategoryCategoryId");
+                column: "CategoryId");
         }
 
         /// <inheritdoc />
@@ -266,7 +276,7 @@ namespace ServiceBondhu.Migrations
                 name: "LogHistories");
 
             migrationBuilder.DropTable(
-                name: "MechanicServices");
+                name: "MechanicService");
 
             migrationBuilder.DropTable(
                 name: "ActionTypes");

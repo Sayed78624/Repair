@@ -5,8 +5,7 @@ namespace ServiceBondhu.Models.Admin
     public class MechanicService
     {
         [Key]
-        public int Id { get; set; }
-
+        public int MechanicServiceId { get; set; }
         public int MechanicId { get; set; }
         public int ServiceId { get; set; }
 

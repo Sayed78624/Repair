@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace ServiceBondhu.Models.Admin
 {
@@ -6,14 +8,15 @@ namespace ServiceBondhu.Models.Admin
     {
         [Key]
         public int MechanicId { get; set; }
-        public int UserId { get; set; }
-        public int ExperienceYear { get; set; }
-        public double Rating { get; set; }
-        public string AvailableZone { get; set; }
+        public string MechanicName {  get; set; }
+        public string Phone {  get; set; }
+        public string Email { get; set; }
         public bool IsAvailable { get; set; }
+        [ForeignKey(nameof(Service))]
+        public int ServiceId { get; set; }
 
-        //public virtual User User { get; set; }
-        public IList<MechanicService> MechanicServices { get; set; } = new List<MechanicService>();
+        public virtual Service Service { get; set; }
     }
 
 }
+

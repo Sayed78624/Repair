@@ -12,8 +12,8 @@ using ServiceBondhu.Data;
 namespace ServiceBondhu.Migrations
 {
     [DbContext(typeof(ServiceDbContext))]
-    [Migration("20250701172223_updateservice")]
-    partial class updateservice
+    [Migration("20250703104845_service")]
+    partial class service
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -120,34 +120,38 @@ namespace ServiceBondhu.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MechanicId"));
 
-                    b.Property<string>("AvailableZone")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ExperienceYear")
-                        .HasColumnType("int");
 
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
 
-                    b.Property<double>("Rating")
-                        .HasColumnType("float");
+                    b.Property<string>("MechanicName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ServiceId")
                         .HasColumnType("int");
 
                     b.HasKey("MechanicId");
+
+                    b.HasIndex("ServiceId");
 
                     b.ToTable("Mechanics");
                 });
 
             modelBuilder.Entity("ServiceBondhu.Models.Admin.MechanicService", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("MechanicServiceId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MechanicServiceId"));
 
                     b.Property<int>("MechanicId")
                         .HasColumnType("int");
@@ -155,13 +159,13 @@ namespace ServiceBondhu.Migrations
                     b.Property<int>("ServiceId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("MechanicServiceId");
 
                     b.HasIndex("MechanicId");
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("MechanicServices");
+                    b.ToTable("MechanicService");
                 });
 
             modelBuilder.Entity("ServiceBondhu.Models.Admin.Service", b =>
@@ -280,13 +284,13 @@ namespace ServiceBondhu.Migrations
                     b.HasOne("ServiceBondhu.Models.User.Booking", "Booking")
                         .WithMany()
                         .HasForeignKey("BookingId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("ServiceBondhu.Models.Admin.Mechanic", "Mechanic")
                         .WithMany()
                         .HasForeignKey("MechanicId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Booking");
@@ -313,18 +317,29 @@ namespace ServiceBondhu.Migrations
                     b.Navigation("Booking");
                 });
 
+            modelBuilder.Entity("ServiceBondhu.Models.Admin.Mechanic", b =>
+                {
+                    b.HasOne("ServiceBondhu.Models.Admin.Service", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Service");
+                });
+
             modelBuilder.Entity("ServiceBondhu.Models.Admin.MechanicService", b =>
                 {
                     b.HasOne("ServiceBondhu.Models.Admin.Mechanic", "Mechanic")
-                        .WithMany("MechanicServices")
+                        .WithMany()
                         .HasForeignKey("MechanicId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("ServiceBondhu.Models.Admin.Service", "Service")
                         .WithMany()
                         .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Mechanic");
@@ -360,11 +375,6 @@ namespace ServiceBondhu.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("Service");
-                });
-
-            modelBuilder.Entity("ServiceBondhu.Models.Admin.Mechanic", b =>
-                {
-                    b.Navigation("MechanicServices");
                 });
 
             modelBuilder.Entity("ServiceBondhu.Models.Admin.ServiceCategory", b =>

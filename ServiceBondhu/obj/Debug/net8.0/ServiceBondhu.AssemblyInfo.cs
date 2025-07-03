@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ServiceBondhu")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+48423cb958058729f10cc90f962fa18ae88cc152")]
 [assembly: System.Reflection.AssemblyProductAttribute("ServiceBondhu")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ServiceBondhu")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
